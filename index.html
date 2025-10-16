@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shuffling | Home</title>
-    <meta name="description" content="The home page, gives a brief description of the site.">
-    <meta name="author" content="Jared Reynolds">
-    <link rel="stylesheet" href="/css/styles.css">
-    <script type="module" src="/js/main.js"></script>
-</head>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Shuffling | Home</title>
+      <meta name="description" content="The home page, gives a brief description of the site.">
+      <meta name="author" content="Jared Reynolds">
+      <base href="">
+      <script>
+        const BASE_URL = location.hostname === "icedraggon234.github.io" 
+            ? "https://icedraggon234.github.io/The-Shuffler/" 
+            : "/";
+        document.querySelector("base").href = BASE_URL;
+      </script>
+      <link rel="stylesheet" href="css/styles.css">
+      <script type="module" src="js/main.js"></script>
+  </head>
 <body>
-<header></header>
+  <header></header>
 <main>
     <div class="hero">
       <h1>Custom YouTube Playlist Shuffler</h1>

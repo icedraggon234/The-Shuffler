@@ -6,8 +6,15 @@
         <title>Shuffling | Playback</title>
         <meta name="description" content="Creates a custom made and shuffled playlist to view">
         <meta name="author" content="Jared Reynolds">
-        <link rel="stylesheet" href="/css/styles.css" />
-        <script type="module" src="/js/playback.js"></script>
+        <base href="">
+        <script>
+            const BASE_URL = location.hostname === "icedraggon234.github.io" 
+                ? "https://icedraggon234.github.io/The-Shuffler/" 
+                : "/";
+            document.querySelector("base").href = BASE_URL;
+        </script>
+        <link rel="stylesheet" href="css/styles.css" />
+        <script type="module" src="js/playback.js"></script>
         <script src="https://www.youtube.com/iframe_api" defer></script>
     </head>
     <body>

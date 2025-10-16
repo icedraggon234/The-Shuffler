@@ -6,8 +6,15 @@
         <title>Shuffling | Playlist Management</title>
         <meta name="description" content="The page where you manage your saved playlists">
         <meta name="author" content="Jared Reynolds">
-        <link rel="stylesheet" href="/css/styles.css" />
-        <script type="module" src="/js/playlist-management.js"></script>
+        <base href="">
+        <script>
+            const BASE_URL = location.hostname === "icedraggon234.github.io" 
+                ? "https://icedraggon234.github.io/The-Shuffler/" 
+                : "/";
+            document.querySelector("base").href = BASE_URL;
+        </script>
+        <link rel="stylesheet" href="css/styles.css" />
+        <script type="module" src="js/playlist-management.js"></script>
     </head>
     <body>
         <header></header>

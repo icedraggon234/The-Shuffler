@@ -14,7 +14,7 @@ export async function loadHeaderFooter() {
     headerTemplate.innerHTML = headerHtml;
     footerTemplate.innerHTML = footerHtml;
 
-    [...headerTemplate.content.querySelectorAll("a")].find(a => a.getAttribute("href") === window.location.pathname).classList.add("active");
+    [...headerTemplate.content.querySelectorAll("a")].find(a =>a.href === window.location.href)?.classList.add("active");
     
     document.querySelector("header").replaceWith(headerTemplate.content.firstElementChild);
     document.querySelector("footer").replaceWith(footerTemplate.content.firstElementChild);
