@@ -5,8 +5,8 @@
  * and replaces the existing <header> and <footer> elements with the loaded content.
  */
 export async function loadHeaderFooter() {
-    const headerHtml = await fetch("/partials/header.html").then(res => res.text());
-    const footerHtml = await fetch("/partials/footer.html").then(res => res.text());
+    const headerHtml = await fetch("partials/header.html").then(res => res.text());
+    const footerHtml = await fetch("partials/footer.html").then(res => res.text());
 
     const headerTemplate = document.createElement("template");
     const footerTemplate = document.createElement("template");
