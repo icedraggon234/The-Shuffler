@@ -1,0 +1,341 @@
+:root {
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-headline: "Arial Narrow", sans-serif;
+  /* colors */
+
+  /* https://coolors.co/9381ff-b8b8ff-f8f7ff-594157-130107 */
+  --tropical-indigo: hsla(249, 100%, 75%, 1);
+  --periwinkle: hsla(240, 100%, 86%, 0.5);
+  --ghost-white: hsla(248, 100%, 98%, 1);
+  --english-violet: hsla(305, 16%, 30%, 1);
+  --licorice: hsla(340, 90%, 4%, 1);
+
+  --border-color: var(--english-violet);
+  --color-primary: var(--tropical-indigo);
+  --color-secondary: var(--periwinkle);
+  --text-light: var(--ghost-white);
+  --text-dark: var(--licorice);
+
+  /* sizes */
+  --font-base: 18px;
+  --small-font: 0.8em;
+  --large-font: 1.2em;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.3); }
+  50%  { transform: scale(0.9); }
+  70%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.bounce {
+  animation: bounce 0.5s ease;
+  display: inline-block;
+}
+
+body {
+	margin: 0;
+  font-family: var(--font-body);
+  color: var(--text-dark);
+  background-color: var(--color-secondary);
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--text-dark);
+}
+
+button {
+  padding: .25rem;
+  background-color: var(--english-violet);
+  color: var(--text-light);
+  border: 2px solid var(--ghost-white);
+  border-radius:10px;
+  cursor: pointer;
+  
+  transition: 
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    transform 0.35s ease;
+}
+
+button:hover {
+  background-color: var(--ghost-white);
+  color: var(--english-violet);
+  border-color: var(--english-violet);
+  transform: scale(1.03);
+}
+
+input[type="text"],
+input[type="number"] {
+  padding: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  font-size: 1em;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  -webkit-appearance: none;
+  appearance: textfield;
+  margin: 0;
+}
+
+label {
+  font-weight: bold;
+  color: var(--english-violet);
+}
+
+header {
+  border-bottom: 4px solid var(--border-color);
+}
+
+main {
+	max-width: 60rem;
+	margin: 1rem auto;
+}
+
+footer {
+  padding: 1rem;
+  border-top: 4px solid var(--border-color);
+}
+
+/* Nav stylings */
+.site-nav {
+  background: var(--color-primary);
+  font-family: var(--font-body);
+}
+
+.nav-list {
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.nav-link {
+  display: block;
+  padding: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: rgba(0, 0, 0, .3);
+  color: var(--ghost-white);
+}
+
+.active {
+  background-color: rgba(0, 0, 0, .1);
+  color: var(--ghost-white);
+}
+
+/* Home page stylings */
+.hero {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: var(--color-primary);
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  animation: fadeIn 0.6s ease;
+}
+
+.hero h1 {
+  color: var(--text-light);
+  font-size: 2.5rem;
+  font-family: var(--font-headline);
+}
+
+.hero p {
+  color: var(--text-light);
+  font-size: var(--large-font);
+  margin: 0;
+}
+
+.content-section {
+  background-color: var(--ghost-white);
+  padding: 2rem;
+  margin: 1rem 0;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease;
+}
+
+.content-section h2 {
+  color: var(--english-violet);
+  font-family: var(--font-headline);
+  margin-top: 0;
+  font-size: 1.8em;
+}
+
+.content-section p {
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+
+/* Playlist/Shuffler Management stylings */
+#loaded-playlists-pl,
+#loaded-playlists-sh,
+#shuffle-pattern {
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  border-top: 4px solid var(--border-color);
+}
+
+#loaded-playlists-pl.conjoin-toggle li:hover,
+#loaded-playlists-pl li.conjoin-toggle,
+#loaded-playlists-sh li:hover
+ {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 1);
+}
+
+#loaded-playlists-pl li,
+#loaded-playlists-sh li, 
+#shuffle-pattern li {
+  padding: 1rem;
+  margin: .25rem;
+  border-radius: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Playlist Management stylings */
+#loaded-playlists-pl li.conjoin-toggle {
+  position: relative;
+}
+
+#loaded-playlists-pl li.conjoin-toggle h5 {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  margin: 0;
+}
+
+.playlist-management-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.playlist-management-inputs div {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-management-inputs label {
+  margin-bottom: 0.25rem;
+}
+
+.playlist-management-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Shuffler Management stylings */
+#current-pattern {
+  padding: 0;
+  border-top: 4px solid var(--border-color);
+}
+
+#current-pattern > li {
+  display: inline-block;
+  padding-right: 1rem;
+  margin: 1rem;
+  margin-left: 0;
+  position: relative;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 1);
+  border-radius: 20px;
+  animation: fadeIn 0.4s ease;
+}
+
+#current-pattern > li > h3 {
+  position: absolute;
+  top: 3px;
+  left: 27px;
+  margin: 0;
+}
+
+#current-pattern ul {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#current-pattern ul li {
+  padding: 0.25rem;
+}
+
+.shuffler-management-section {
+  background-color: var(--ghost-white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  margin-bottom: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
+.shuffler-management-section h2 {
+  color: var(--english-violet);
+  font-family: var(--font-headline);
+  margin-top: 0;
+}
+
+.shuffler-management-section input[type="number"] {
+  margin-bottom: 1rem;
+}
+
+.shuffler-management-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Playback page stylings */
+.player-section {
+  background-color: var(--ghost-white);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.6s ease;
+  text-align: center;
+}
+
+.player-section h1 {
+  color: var(--english-violet);
+  font-family: var(--font-headline);
+  font-size: 2.5rem;
+}
+
+#youtube-player {
+  border-radius: 10px;
+}
+
+.player-button {
+  margin: 1rem;
+  padding: 0.75rem 1.5rem;
+  font-size: var(--large-font);
+  font-weight: bold;
+  animation: fadeIn 0.4s ease;
+}
+
+
