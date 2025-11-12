@@ -9,8 +9,8 @@ loadHeaderFooter();
 // YouTube IFrame API callback: initializes the YouTube player
 window.onYouTubeIframeAPIReady = function () {
   window.youtubePlayer = new YT.Player("youtube-player", {
-    // height: '390',
-    // width: '640',
+    // height: "390",
+    // width: "640",
     // videoId: "M7lc1UVf-VE",
     playerVars: {
       playsinline: 1,

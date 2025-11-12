@@ -24,6 +24,12 @@ function templateFunction(playlist) {
     `;
 }
 
+function renderPlaylistsFromLocalStorage() {
+    playlists.length = 0;
+    playlists.push(...(JSON.parse(localStorage.getItem("playlists")) || []));
+    renderListWithTemplate(templateFunction, ul, playlists);
+}
+
 // Select playlist ID input on click for easy editing
 document.getElementById("playlist-id").addEventListener("click", e => e.target.select());
 
@@ -114,8 +120,28 @@ document.getElementById("save-playlists").addEventListener("click", () => {
 });
 
 // Load playlists from localStorage
-document.getElementById("load-stored-playlists").addEventListener("click", () => {
-    playlists.length = 0;
-    playlists.push(...(JSON.parse(localStorage.getItem("playlists")) || []));
-    renderListWithTemplate(templateFunction, ul, playlists);
+document.getElementById("load-stored-playlists").addEventListener("click", renderPlaylistsFromLocalStorage);
+
+document.getElementById("export").addEventListener("click", e => {
+    const button = e.currentTarget;
+    const exportedData = localStorage.getItem("playlists") + "|~shufflerData~|" + localStorage.getItem("pattern");
+    navigator.clipboard.writeText(exportedData);
+    const temp = button.innerText;
+    button.innerText = "Copied";
+    setTimeout(() => button.innerText = temp ,1500);
 });
+
+document.getElementById("import").addEventListener("click", () => {
+    const importedData = document.getElementById("data-to-import").value;
+    if (!importedData.includes("|~shufflerData~|")) return;
+
+    const data = importedData.split("|~shufflerData~|");
+
+    localStorage.setItem("playlists", data[0]);
+    localStorage.setItem("pattern", data[1]);
+    renderPlaylistsFromLocalStorage();
+
+    document.getElementById("data-to-import").value = "";
+});
+
+document.getElementById("data-to-import").addEventListener("click", e => e.target.select());
