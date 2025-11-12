@@ -18,14 +18,38 @@ window.onYouTubeIframeAPIReady = function () {
     },
     events: {
       onError: embedsNotAllowed,
+      onStateChange: updateIndex,
+      onReady: loadSession,
     }
   });
 };
 
-window.embedsNotAllowed = function (e) {
+window.embedsNotAllowed = function(e) {
   if (![101, 150].includes(e.data)) return;
-  // console.error("Embed for this video is not allowed");
+  console.error("Embed for this video is not allowed");
 };
+
+window.updateIndex = function(e) {
+  if (e.data !== YT.PlayerState.PLAYING || e.target.getPlaylistIndex() === sessionData.currentVideoIndex) return;
+
+  sessionData.currentVideoIndex = e.target.getPlaylistIndex();
+  sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
+  console.log(sessionData);
+};
+
+window.loadSession = function(e) {
+  window.sessionData = JSON.parse(sessionStorage.getItem("sessionData") || "{}");
+  console.log(sessionData);
+
+  if (!sessionData.playlist) return;
+
+  e.target.cuePlaylist(sessionData.playlist, sessionData.currentVideoIndex);
+};
+
+
+
+
+
 
 // Generate and cue a shuffled playlist when button is clicked
 document.getElementById("generate-playlist").addEventListener("click", () => {
@@ -54,6 +78,11 @@ document.getElementById("generate-playlist").addEventListener("click", () => {
   const shuffledVideoIds = masterShuffler9000.shuffleTogether(
     masterShuffler9000.readKey(keyArray)
   );
+
+  sessionData.playlist = shuffledVideoIds;
+  sessionData.currentVideoIndex = 0;
+  
+  sessionStorage.setItem("sessionData", JSON.stringify(sessionData));
 
   // Cue the shuffled playlist in the YouTube player
   youtubePlayer.cuePlaylist(shuffledVideoIds);
