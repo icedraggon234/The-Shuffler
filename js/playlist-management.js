@@ -24,7 +24,7 @@ function templateFunction(playlist) {
     `;
 }
 
-function renderPlaylistsFromLocalStorage() {
+function loadPlaylistsFromLocalStorage() {
     playlists.length = 0;
     playlists.push(...(JSON.parse(localStorage.getItem("playlists")) || []));
     renderListWithTemplate(templateFunction, ul, playlists);
@@ -120,7 +120,7 @@ document.getElementById("save-playlists").addEventListener("click", () => {
 });
 
 // Load playlists from localStorage
-document.getElementById("load-stored-playlists").addEventListener("click", renderPlaylistsFromLocalStorage);
+document.getElementById("load-stored-playlists").addEventListener("click", loadPlaylistsFromLocalStorage);
 
 document.getElementById("export").addEventListener("click", e => {
     const button = e.currentTarget;
@@ -139,9 +139,29 @@ document.getElementById("import").addEventListener("click", () => {
 
     localStorage.setItem("playlists", data[0]);
     localStorage.setItem("pattern", data[1]);
-    renderPlaylistsFromLocalStorage();
+    loadPlaylistsFromLocalStorage();
 
     document.getElementById("data-to-import").value = "";
 });
 
 document.getElementById("data-to-import").addEventListener("click", e => e.target.select());
+
+document.getElementById("update").addEventListener("click", async () => {
+    const playlistsToUpdate = playlists.filter(playlist => !playlist.id.includes("|~|"));
+    const conjoinedLists = playlists.filter(playlist => playlist.id.includes("|~|"));
+
+    playlists.length = 0;
+    for (const playlist of playlistsToUpdate) {
+        const updatedPlaylist = new Playlist(playlist.id);
+        await updatedPlaylist.init();
+
+        playlists.push(updatedPlaylist.lightPlaylistData);
+
+    };
+    playlists.push(...conjoinedLists);
+    localStorage.setItem("playlists", JSON.stringify(playlists));
+    loadPlaylistsFromLocalStorage();
+});
+
+
+loadPlaylistsFromLocalStorage();
